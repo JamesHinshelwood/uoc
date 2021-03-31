@@ -1,0 +1,17 @@
+[package]
+name = "uoc"
+version = "0.1.0"
+authors = ["James Hinshelwood <james.hinshelwood@bigpayme.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+num-rational = "0.4.0"
+num-traits = "0.2.14"
+typenum = "1.15.0"
+postgres-types = "0.2.2"
+eyre = "0.6.6"
+serde = { version = "1.0.136", features = ["derive"] }
+rust_decimal = "1.22.0"
+bigdecimal = "0.3.0"

@@ -1,0 +1,72 @@
+# The problem
+
+Floating point doesn't work:
+
+```
+> 0.2 + 0.1
+0.30000000000000004
+```
+
+Rounding doesn't work:
+
+```
+> (0.25 / 2) * 2
+0.26
+```
+
+Infinite decimals kinda work but not really:
+
+```
+> 10 / 3
+0.3333 # to some degree of precision, the remainder disappears into the abyss
+```
+
+Rationals to the rescue:
+
+```
+> 0.2 + 0.1
+(2 / 10) + (1 / 10)
+= 3 / 10
+
+> (0.25 / 2) * 2
+((1 / 4) / 2) * 2
+(1 / 8) * 2
+1 / 4
+
+> 10 / 3
+10 / 3
+```
+
+maybe the fee is rounded not actually a percentage
+
+# How to represent your Rationals
+
+- Obviously you want a numerator + denominator.
+- Should they be simplified? (it keeps your numbers smaller, but requires gcds when doing calculations)
+- What should the format of the component numbers be (finite or infinite?)
+- DDOS attacks?
+
+# But at the end of the day, you still want a normal number:
+
+```
+> round((10 / 3), 'TOWARDS_ZERO')
+(3, (1 / 3)) # woop, we didn't lose money! (though obviously now you need to define what to do with the rounding error - probably transfer to some system account)
+```
+
+# Bonus stuff - representing currencies in the type system
+
+```
+> a = Myr (20 / 1) # RM20
+> b = Myr (40 / 1) # RM40
+> a + b
+Myr (60 / 1)
+
+> c = Sgd (50 / 1) # S$50
+> a + c
+!!! Type error
+
+> ex = (Sgd -> Myr) (10 / 1) # S$10 -> RM1
+> a + (ex.exchange(c))
+a + (Myr (5 / 1))
+Myr (25 / 1)
+```
